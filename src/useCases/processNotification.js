@@ -4,8 +4,9 @@ const sendTelegramMessage = require('../infrastructure/telegramNotifier');
 module.exports = (notificationData) => {
   try {
     // Lógica para procesar la notificación
-    console.log('Procesando notificación en segundo plano:', notificationData);
-
+    //console.log('Procesando notificación en segundo plano:', notificationData);
+    console.log('Procesando notificación en segundo plano..');
+    console.log(JSON.stringify(notificationData, null, 2));
     // Formatea el mensaje que deseas enviar a Telegram
     const message = `Nuevo evento recibido:\n${JSON.stringify(notificationData, null, 2)}`;
 
