@@ -1,0 +1,16 @@
+{
+    "name": "dys-cf-bff-bsale-callback",
+    "version": "1.0.0",
+    "description": "Cloud Function que recibe notificaciones de bsale y actúa como BFF para orquestar otros servicios",
+    "main": "index.js",
+    "scripts": {
+      "start": "node src/app.js"
+    },
+    "engines": {
+      "node": ">=20.0.0"
+    },
+    "dependencies": {
+      "express": "^4.18.2"
+    }
+  }
+  
