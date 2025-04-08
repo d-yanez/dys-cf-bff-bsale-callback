@@ -54,3 +54,9 @@ Todas las variables se recibirán mediante `process.env`. Puedes configurarlas e
 ## TELEGRAM
     https://api.telegram.org/bot<TELEGRAM_TOKEN>/getUpdates
 
+## Test Local
+
+npm install @google-cloud/functions-framework
+"scripts": {
+  "start": "functions-framework --target=app --port=8081"
+}
