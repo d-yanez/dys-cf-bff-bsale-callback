@@ -60,3 +60,41 @@ npm install @google-cloud/functions-framework
 "scripts": {
   "start": "functions-framework --target=app --port=8081"
 }
+npm start
+
+0) run env -> source env.sh
+1) con esto enviamos un mensaje de prueba
+curl -i -X POST http://localhost:8081/callback \
+  -H "Content-Type: application/json" \
+  -d '{"topic":"webOrder","resourceId":"test123"}'
+
+2) luego con esto hacemos pull de msg:
+gcloud pubsub subscriptions pull sub-bsale-webOrder \
+  --limit=1 \
+  --auto-ack
+3) ejemplo de salida:
+
+
+┌─────────────────────────────────────────────┬───────────────────┬──────────────┬────────────┬──────────────────┬────────────┐
+│                     DATA                    │     MESSAGE_ID    │ ORDERING_KEY │ ATTRIBUTES │ DELIVERY_ATTEMPT │ ACK_STATUS │
+├─────────────────────────────────────────────┼───────────────────┼──────────────┼────────────┼──────────────────┼────────────┤
+│ {"topic":"webOrder","resourceId":"test123"} │ 15332468850710657 │              │            │                  │ SUCCESS    │
+└─────────────────────────────────────────────┴───────────────────┴──────────────┴────────────┴──────────────────┴────────────┘
+
+4) para purgar:
+# Ajusta el límite a un número suficientemente grande para vaciar la cola
+gcloud pubsub subscriptions pull sub-bsale-webOrder \
+  --limit=1000 \
+  --auto-ack \
+  --project=prd-dyshopnow
+
+5) deploy prod:
+gcloud auth login
+gcloud config set project prd-dyshopnow
+gcloud functions deploy dys-cf-bff-bsale-callback \
+  --runtime nodejs20 \
+  --trigger-http \
+  --allow-unauthenticated \
+  --region=us-central1 \
+  --env-vars-file=.env.yaml \
+  --entry-point=app
