@@ -86,11 +86,11 @@ gcloud pubsub subscriptions pull sub-bsale-webOrder \
 gcloud pubsub subscriptions pull sub-bsale-webOrder \
   --limit=1000 \
   --auto-ack \
-  --project=prd-dyshopnow
+  --project=<TU_PROJECT_ID>
 
 5) deploy prod:
 gcloud auth login
-gcloud config set project prd-dyshopnow
+gcloud config set project <TU_PROJECT_ID>
 gcloud functions deploy dys-cf-bff-bsale-callback \
   --runtime nodejs20 \
   --trigger-http \
