@@ -98,3 +98,7 @@ gcloud functions deploy dys-cf-bff-bsale-callback \
   --region=us-central1 \
   --env-vars-file=.env.yaml \
   --entry-point=app
+
+
+Para ver logs de arranque y errores, puedes ejecutar:
+gcloud functions logs read dys-cf-bff-bsale-callback --limit=50
